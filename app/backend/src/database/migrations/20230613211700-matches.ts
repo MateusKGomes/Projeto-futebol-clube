@@ -1,20 +1,41 @@
 // src/database/migrations/01-create-books-table.ts
 
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import ITeam from '../../Interfaces/ITeams';
+import IMatches from '../../Interfaces/IMatches';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<ITeam>>('matches', {
+    return queryInterface.createTable<Model<IMatches>>('matches', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      teamName: {
-        type: DataTypes.STRING,
+      homeTeamId: {
+        type: DataTypes.NUMBER,
         allowNull: false,
+        field: 'home_team_id'
+      },
+      homeTeamGoals: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+        field: 'home_team_goals'
+      },
+      awayTeamId: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+        field: 'away_team_id'
+      },
+      awayTeamGoals: {
+        type: DataTypes.NUMBER,
+        allowNull: false,
+        field: 'away_team_goals'
+      },
+      inProgress: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        field: 'in_progress'
       }
     });
   },

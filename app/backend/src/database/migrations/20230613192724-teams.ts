@@ -1,25 +1,34 @@
-// src/database/migrations/01-create-books-table.ts
-
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import ITeam from '../../Interfaces/ITeams';
+import IUser from '../../Interfaces/IUser';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<ITeam>>('teams', {
+    return queryInterface.createTable<Model<IUser>>('users', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      teamName: {
+      username: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'team_name'
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
       }
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('teams');
+    return queryInterface.dropTable('users');
   },
 };
