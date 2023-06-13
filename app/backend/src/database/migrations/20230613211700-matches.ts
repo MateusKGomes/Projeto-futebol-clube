@@ -1,5 +1,3 @@
-// src/database/migrations/01-create-books-table.ts
-
 import { Model, QueryInterface, DataTypes } from 'sequelize';
 import IMatches from '../../Interfaces/IMatches';
 
@@ -13,22 +11,22 @@ export default {
         primaryKey: true,
       },
       homeTeamId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         field: 'home_team_id'
       },
       homeTeamGoals: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         field: 'home_team_goals'
       },
       awayTeamId: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_id'
       },
       awayTeamGoals: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         field: 'away_team_goals'
       },
