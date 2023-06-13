@@ -22,7 +22,7 @@ COPY . ./
 
 EXPOSE 3001
 
-ENTRYPOINT [ "npm" ]
+ENTRYPOINT [ "npm", "run" ]
 
 CMD [ "start" ]
 

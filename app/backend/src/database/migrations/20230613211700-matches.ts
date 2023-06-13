@@ -5,7 +5,7 @@ import ITeam from '../../Interfaces/ITeams';
 
 export default {
   up(queryInterface: QueryInterface) {
-    return queryInterface.createTable<Model<ITeam>>('teams', {
+    return queryInterface.createTable<Model<ITeam>>('matches', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -15,11 +15,10 @@ export default {
       teamName: {
         type: DataTypes.STRING,
         allowNull: false,
-        field: 'team_name'
       }
     });
   },
   down(queryInterface: QueryInterface) {
-    return queryInterface.dropTable('teams');
+    return queryInterface.dropTable('matches');
   },
 };
