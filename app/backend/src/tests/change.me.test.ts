@@ -8,7 +8,7 @@ import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
-import { teams } from './mocks/TeamsMock';
+import { team, teams } from './mocks/TeamsMock';
 
 chai.use(chaiHttp);
 
@@ -41,12 +41,21 @@ describe('Seu teste', () => {
   //   expect(...)
   // });
 
-  it('Testa função findAll teams', async () => {
+  it('Testa função findAll da rota teams', async () => {
     sinon.stub(SequelizeTeam, 'findAll').resolves(teams as any);
 
     const { status, body } = await chai.request(app).get('/teams');
 
     expect(status).to.equal(200);
     expect(body).to.deep.equal(teams);
+  });
+
+  it('Testa função getById da rota teams', async () => {
+    sinon.stub(SequelizeTeam, 'findOne').resolves(team as any);
+
+    const { status, body } = await chai.request(app).get('/teams/1');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(team);
   });
 });
