@@ -1,4 +1,5 @@
 import * as express from 'express';
+import router from './routes';
 
 class App {
   public app: express.Express;
@@ -26,6 +27,10 @@ class App {
 
   public start(PORT: string | number): void {
     this.app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+  }
+
+  public routes(): void {
+    this.app.use(router);
   }
 }
 
