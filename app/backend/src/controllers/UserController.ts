@@ -4,6 +4,7 @@ import UserService from '../services/UserService';
 export default class UserController {
   constructor(
     private userService: UserService,
+
   ) {}
 
   public async login(req: Request, res: Response): Promise<Response> {
@@ -13,5 +14,10 @@ export default class UserController {
       return res.status(401).json(user.data);
     }
     return res.status(200).json(user.data);
+  }
+
+  public async loginRole(req: Request, res: Response): Promise<Response> {
+    const { role } = req.body;
+    return res.status(200).json({ role: role});
   }
 }
