@@ -9,6 +9,8 @@ import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 import { team, teams } from './mocks/TeamsMock';
+import SequelizeUsers from '../database/models/SequellizeUsers';
+import { userRegistered, validLoginBody } from './mocks/UserMock';
 
 chai.use(chaiHttp);
 
@@ -58,4 +60,23 @@ describe('Seu teste', () => {
     expect(status).to.equal(200);
     expect(body).to.deep.equal(team);
   });
+
+  afterEach(sinon.restore);
 });
+
+describe('testa a rota de login', () => {
+  it('testa post comsucesso na rota de login', async () => {
+      const userMock = SequelizeUsers.build(userRegistered)
+      sinon.stub(SequelizeUsers, 'findOne').resolves(userMock)
+      
+      const response = await chai.request(app)
+      .post('/login')
+      .send(validLoginBody)
+      
+      expect(response.status).to.be.equal(200);
+      expect(response.body.token).not.to.be.undefined
+  
+  })
+  afterEach(sinon.restore);
+
+})

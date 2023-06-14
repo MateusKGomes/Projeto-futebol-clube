@@ -1,4 +1,4 @@
-import IUser from './IUser';
+import IUser from './user/IUser';
 
 export interface ICRUDModelReader<T> {
   findAll(): Promise<T[]>,
