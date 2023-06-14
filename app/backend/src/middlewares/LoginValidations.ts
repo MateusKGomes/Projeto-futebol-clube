@@ -1,37 +1,22 @@
-// import { NextFunction, Request } from 'express';
+import { NextFunction, Request, Response } from 'express';
 
-// const passwordValidation = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ): Response | unknown => {
-//   const { password } = req.body;
+const loginValidation = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Response | void => {
+  const { email, password } = req.body;
+  const regexEmail = /\S+@\S+\.\S+/i;
 
-//   if (password === undefined || password.length === 0) {
-//     return res.status(400).json({ message: 'Some required fields are missing' });
-//   }
+  if (!email || !password) {
+    return res.status(400).json({ message: 'All fields must be filled' });
+  }
 
-//   return next();
-// };
+  if (!regexEmail.test(email) || password.length < 6) {
+    return res.status(401).json({
+      message: 'Invalid email or password' });
+  }
+  next();
+};
 
-// const emailValidation = (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ): Response | unknown => {
-//   const { email } = req.body;
-//   const regexEmail = /\S+@\S+\.\S+/i;
-//   if (!email) {
-//     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
-//   }
-//   if (!regexEmail.test(email)) {
-//     return res.status(400).json({
-//       message: 'O "email" deve ter o formato "email@email.com"' });
-//   }
-//   next();
-// };
-
-// export default {
-//   emailValidation,
-//   passwordValidation,
-// };
+export default loginValidation;
