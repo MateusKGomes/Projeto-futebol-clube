@@ -11,5 +11,9 @@ matchesRoute.patch('/:id/finish', validateJwt, (
   req: Request,
   res: Response,
 ) => matchesController.finishMatches(req, res));
+matchesRoute.patch('/:id', validateJwt, (
+  req: Request,
+  res: Response,
+) => matchesController.updateMatches(req, res));
 
 export default matchesRoute;

@@ -5,7 +5,8 @@ export interface ICRUDMatchesModelReader<T> {
   findAll(): Promise<T[]>,
   findById(id: number): Promise<T | null>,
   findProgressMatches(q: boolean): Promise<T[]>,
-  finishMatches(id: IMatches['id'], body: IMatches): Promise<T | null>
+  finishMatches(id: IMatches['id']): Promise<T | null>
+  updateMatches(id: IMatches['id'], body: Partial<IMatches>): Promise<T | null>
 }
 
 export interface ICRUDTeamModelReader<T> {

@@ -50,8 +50,16 @@ export default class MatchesModel implements ICRUDMatchesModelReader<IMatches> {
   }
 
   async finishMatches(id: number): Promise<IMatches | null> {
-    const [update] = await this.modelMatches.update({ inProgress: false }, { where: { id } });
-    console.log('update', update);
+    await this.modelMatches.update({ inProgress: false }, { where: { id } });
+
+    const findMatch = this.findById(id);
+    if (findMatch === null) return null;
+
+    return findMatch;
+  }
+
+  async updateMatches(id: number, body: Partial<IMatches>): Promise<IMatches | null> {
+    await this.modelMatches.update(body, { where: { id } });
 
     const findMatch = this.findById(id);
     if (findMatch === null) return null;

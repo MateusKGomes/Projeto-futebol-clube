@@ -23,4 +23,12 @@ export default class MatchesService {
     const finish = await this.matchesModel.finishMatches(id);
     return { status: 'SUCCESSFUL', data: finish };
   }
+
+  public async updateMatches(
+    id: number,
+    body: IMatches,
+  ): Promise<ServiceResponse<IMatches | null>> {
+    const update = await this.matchesModel.updateMatches(id, body);
+    return { status: 'SUCCESSFUL', data: update };
+  }
 }
