@@ -1,5 +1,7 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
+import * as jwt from 'jsonwebtoken';
+
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import SequelizeTeam from '../database/models/SequelizeTeam';
@@ -104,21 +106,20 @@ describe('testa a rota matches', () => {
     expect(status).to.equal(200);
     expect(body).to.deep.equal(progressMatches);
   })
-  // it.skip('testa a função que finaliza a partida', async () => {
-  //   sinon.stub(SequelizeMatches, 'update').resolves([1] as any)
-  //   sinon.stub(SequelizeMatches, 'findByPk').resolves(findById as any)
+  it('testa a função que finaliza a partida', async () => {
+    sinon.stub(jwt, 'verify').returns(userRegistered as any)
+    sinon.stub(SequelizeMatches, 'update').resolves([1] as any)
+    sinon.stub(SequelizeMatches, 'findByPk').resolves(findById as any)
 
-  //   const { id, ...sendData } = findById;
+    const { id, ...sendData } = findById;
 
-  //   const { status, body } = await chai.request(app).put('/matches/47/finish')
-  //   .send(sendData);
+    const { status, body } = await chai.request(app).patch('/matches/47/finish')
+    .send(sendData)
+    .set('Authorization', 'token');
 
-  //   console.log('data', sendData);
-  //   console.log('body', body);
-  
-  //   expect(status).to.equal(200);
-  //   expect(body.message).to.equal('Finished');
-  // })
+    expect(status).to.equal(200);
+    expect(body.message).to.equal('Finished');
+  })
   
   afterEach(sinon.restore);
 })
