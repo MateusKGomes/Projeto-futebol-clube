@@ -17,7 +17,8 @@ export default class UserController {
   }
 
   public async loginRole(req: Request, res: Response): Promise<Response> {
-    const { role } = req.body;
-    return res.status(200).json({ role: role});
+    const { role, email, password } = req.body;
+    this.userService.login(email, password);
+    return res.status(200).json({ role });
   }
 }

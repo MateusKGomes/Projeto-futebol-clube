@@ -14,20 +14,24 @@ const userService = new UserService(userModel, encrypter, tokenGenerator);
 const userController = new UserController(userService);
 
 const userRoute = Router();
-const loginRoute = Router();
 
-userRoute.post('/',
-loginValidation, (
-  req: Request,
-  res: Response,
-) => userController.login(req, res));
+userRoute.post(
+  '/',
+  loginValidation,
+  (
+    req: Request,
+    res: Response,
+  ) => userController.login(req, res),
+);
 
+userRoute.get(
+  '/role',
+  tokenValidation,
 
-userRoute.get('/role',
-tokenValidation, (
-  req: Request,
-  res: Response,
-) => userController.loginRole(req, res));
-
+  (
+    req: Request,
+    res: Response,
+  ) => userController.loginRole(req, res),
+);
 
 export default userRoute;

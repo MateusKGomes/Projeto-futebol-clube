@@ -11,7 +11,10 @@ export default class UserService {
 
   ) {}
 
-  public async login(userEmail: string, password: string): Promise<ServiceResponse<{ token :string }>> {
+  public async login(
+    userEmail: string,
+    password: string,
+  ): Promise<ServiceResponse<{ token :string }>> {
     const user = await this.userModel.findByEmail(userEmail);
 
     if (!user) {
