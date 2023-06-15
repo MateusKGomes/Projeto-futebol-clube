@@ -11,6 +11,8 @@ import { Response } from 'superagent';
 import { team, teams } from './mocks/TeamsMock';
 import SequelizeUsers from '../database/models/SequellizeUsers';
 import { userRegistered, validLoginBody } from './mocks/UserMock';
+import SequelizeMatches from '../database/models/SequelizeMatches';
+import { matches } from './mocks/MatchesMock';
 
 chai.use(chaiHttp);
 
@@ -78,5 +80,14 @@ describe('testa a rota de login', () => {
   
   })
   afterEach(sinon.restore);
+})
 
+describe('testa a rota matches', () => {
+  it('testa a função findAll', async () => {
+    sinon.stub(SequelizeMatches, 'findAll').resolves(matches as any)
+    const { status, body } = await chai.request(app).get('/matches');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(matches);
+  })
 })
