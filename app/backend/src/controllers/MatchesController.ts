@@ -34,6 +34,12 @@ export default class MatchesController {
   public async createMatches(req: Request, res: Response): Promise<Response> {
     const { body } = req.body;
     const create = await this.matchesService.createMatches(body);
+    if (create.status === 'INVALID_DATA') {
+      return res.status(422).json(create.data);
+    }
+    if (create.status === 'NOT_FOUND') {
+      return res.status(404).json(create.data);
+    }
     return res.status(201).json(create.data);
   }
 }

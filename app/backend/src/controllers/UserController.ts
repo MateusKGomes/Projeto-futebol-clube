@@ -20,7 +20,6 @@ export default class UserController {
   public async loginRole(req: Request, res: Response): Promise<Response> {
     const { payload } = req.body;
     const { role, email, password } = payload;
-    console.log('role', payload);
 
     this.userService.login(email, password);
     return res.status(200).json({ role });
