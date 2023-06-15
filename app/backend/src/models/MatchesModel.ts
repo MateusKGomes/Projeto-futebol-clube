@@ -29,4 +29,23 @@ export default class MatchesModel implements ICRUDModelReader<IMatches> {
     if (!currentMatches) return null;
     return currentMatches;
   }
+
+  async findProgressMatches(q: boolean): Promise<IMatches[]> {
+    const matches = await this.modelMatches.findAll({
+      where: { inProgress: q },
+      include: [
+        {
+          model: SequelizeTeam,
+          as: 'homeTeam',
+          attributes: ['teamName'],
+        },
+        {
+          model: SequelizeTeam,
+          as: 'awayTeam',
+          attributes: ['teamName'],
+        },
+      ],
+    });
+    return matches;
+  }
 }
