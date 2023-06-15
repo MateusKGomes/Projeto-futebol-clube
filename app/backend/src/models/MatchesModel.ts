@@ -66,4 +66,9 @@ export default class MatchesModel implements ICRUDMatchesModelReader<IMatches> {
 
     return findMatch;
   }
+
+  async createMatches(body: IMatches): Promise<IMatches> {
+    const matches = await this.modelMatches.create({ ...body, inProgress: true });
+    return matches;
+  }
 }

@@ -13,11 +13,7 @@ const validateJwt = (
 
     const payload = jwt.verify(token, password);
 
-    console.log(req.body);
-
     req.body = { body: req.body, payload };
-
-    console.log(req.body);
 
     next();
   } catch (error) {

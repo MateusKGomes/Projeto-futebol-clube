@@ -31,4 +31,9 @@ export default class MatchesService {
     const update = await this.matchesModel.updateMatches(id, body);
     return { status: 'SUCCESSFUL', data: update };
   }
+
+  public async createMatches(body: IMatches): Promise<ServiceResponse<IMatches>> {
+    const matches = await this.matchesModel.createMatches(body);
+    return { status: 'SUCCESSFUL', data: matches };
+  }
 }

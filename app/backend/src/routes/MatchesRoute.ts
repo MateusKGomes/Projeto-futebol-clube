@@ -22,4 +22,10 @@ matchesRoute.patch('/:id', validateJwt, (
   res: Response,
 ) => matchesController.updateMatches(req, res));
 
+matchesRoute.post(
+  '/',
+  validateJwt,
+  (req: Request, res: Response) => matchesController.createMatches(req, res),
+);
+
 export default matchesRoute;
