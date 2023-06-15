@@ -1,9 +1,9 @@
 import SequelizeTeam from '../database/models/SequelizeTeam';
 import SequelizeMatches from '../database/models/SequelizeMatches';
-import { ICRUDModelReader } from '../Interfaces/ICRUDModel';
 import IMatches from '../Interfaces/matches/IMatches';
+import { ICRUDMatchesModelReader } from '../Interfaces/ICRUDModel';
 
-export default class MatchesModel implements ICRUDModelReader<IMatches> {
+export default class MatchesModel implements ICRUDMatchesModelReader<IMatches> {
   private modelMatches = SequelizeMatches;
 
   async findAll(): Promise<IMatches[]> {
@@ -47,5 +47,15 @@ export default class MatchesModel implements ICRUDModelReader<IMatches> {
       ],
     });
     return matches;
+  }
+
+  async finishMatches(id: number): Promise<IMatches | null> {
+    const [update] = await this.modelMatches.update({ inProgress: false }, { where: { id } });
+    console.log('update', update);
+
+    const findMatch = this.findById(id);
+    if (findMatch === null) return null;
+
+    return findMatch;
   }
 }

@@ -1,4 +1,4 @@
-import { ICRUDModelReader } from '../ICRUDModel';
+import { ICRUDTeamModelReader } from '../ICRUDModel';
 import ITeam from './ITeams';
 
-export type ITeamModel = ICRUDModelReader<ITeam>;
+export type ITeamModel = ICRUDTeamModelReader<ITeam>;

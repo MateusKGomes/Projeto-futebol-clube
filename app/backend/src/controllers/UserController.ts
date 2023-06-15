@@ -9,6 +9,7 @@ export default class UserController {
 
   public async login(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body;
+
     const user = await this.userService.login(email, password);
     if (user.status !== 'SUCCESSFUL') {
       return res.status(401).json(user.data);
@@ -17,7 +18,10 @@ export default class UserController {
   }
 
   public async loginRole(req: Request, res: Response): Promise<Response> {
-    const { role, email, password } = req.body;
+    const { payload } = req.body;
+    const { role, email, password } = payload;
+    console.log('role', payload);
+
     this.userService.login(email, password);
     return res.status(200).json({ role });
   }

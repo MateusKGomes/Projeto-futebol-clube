@@ -11,9 +11,13 @@ const validateJwt = (
     if (!token) { return res.status(401).json({ message: 'Token not found' }); }
     const password = process.env.JWT_SECRET || 'segredo';
 
-    const verify = jwt.verify(token, password);
+    const payload = jwt.verify(token, password);
 
-    req.body = verify;
+    console.log(req.body);
+
+    req.body = { body: req.body, payload };
+
+    console.log(req.body);
 
     next();
   } catch (error) {
