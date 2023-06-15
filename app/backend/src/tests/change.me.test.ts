@@ -12,7 +12,7 @@ import { team, teams } from './mocks/TeamsMock';
 import SequelizeUsers from '../database/models/SequellizeUsers';
 import { userRegistered, validLoginBody } from './mocks/UserMock';
 import SequelizeMatches from '../database/models/SequelizeMatches';
-import { matches } from './mocks/MatchesMock';
+import { findById, finishedMatches, matches, progressMatches } from './mocks/MatchesMock';
 
 chai.use(chaiHttp);
 
@@ -90,4 +90,35 @@ describe('testa a rota matches', () => {
     expect(status).to.equal(200);
     expect(body).to.deep.equal(matches);
   })
+  it('testa a função progressMatches, com partidas encerradas', async () => {
+    sinon.stub(SequelizeMatches, 'findAll').resolves(finishedMatches as any)
+    const { status, body } = await chai.request(app).get('/matches?inProgress=false');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(finishedMatches);
+  })
+  it('testa a função progressMatches, com partidas em andamento', async () => {
+    sinon.stub(SequelizeMatches, 'findAll').resolves(progressMatches as any)
+    const { status, body } = await chai.request(app).get('/matches?inProgress=true');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(progressMatches);
+  })
+  // it.skip('testa a função que finaliza a partida', async () => {
+  //   sinon.stub(SequelizeMatches, 'update').resolves([1] as any)
+  //   sinon.stub(SequelizeMatches, 'findByPk').resolves(findById as any)
+
+  //   const { id, ...sendData } = findById;
+
+  //   const { status, body } = await chai.request(app).put('/matches/47/finish')
+  //   .send(sendData);
+
+  //   console.log('data', sendData);
+  //   console.log('body', body);
+  
+  //   expect(status).to.equal(200);
+  //   expect(body.message).to.equal('Finished');
+  // })
+  
+  afterEach(sinon.restore);
 })
