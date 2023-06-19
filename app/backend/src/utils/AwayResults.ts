@@ -10,7 +10,7 @@ export default class Results {
 
   public async teamResults() {
     const teams = await this.teamModel.findAll();
-    const matches = await this.resultsModel.leaderHomeTeam();
+    const matches = await this.resultsModel.leaderTeam();
 
     const result = teams.map(({ teamName, id }) => ({
       name: teamName,
