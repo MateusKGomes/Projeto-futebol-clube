@@ -71,4 +71,10 @@ export default class MatchesModel implements ICRUDMatchesModelReader<IMatches> {
     const matches = await this.modelMatches.create({ ...body, inProgress: true });
     return matches;
   }
+
+  async leaderHomeTeam(): Promise<unknown | null> {
+    const matches = await this.modelMatches.findAll();
+    const finishMatches = matches.find((match) => match.inProgress === false);
+    return finishMatches;
+  }
 }
