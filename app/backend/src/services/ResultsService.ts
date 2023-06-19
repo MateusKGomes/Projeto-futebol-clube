@@ -1,28 +1,25 @@
 // import IResults from '../Interfaces/results/IResults';
-import Results from '../utils/Results';
-import ResultsModel from '../models/ResultsModel';
+import orderResults from '../utils/orderResults';
+import HomeResults from '../utils/HomeResults';
 import IResults from '../Interfaces/results/IResults';
+import AwayResults from '../utils/AwayResults';
 
 export default class ResultsService {
   constructor(
-    private resultsModel: ResultsModel = new ResultsModel(),
-    private results: Results = new Results(),
+    private homeResults: HomeResults = new HomeResults(),
+    private awayResults: AwayResults = new AwayResults(),
+
   ) {}
 
   public async leaderHomeTeam(): Promise<IResults[]> {
-    const teamResults = await this.results.teamResults();
-    const orderByPoints = teamResults.sort((a, b) => {
-      if (a.totalPoints === b.totalPoints) {
-        if (a.totalVictories === b.totalVictories) {
-          if (a.goalsBalance === b.goalsBalance) {
-            return b.goalsFavor - a.goalsFavor;
-          }
-          return b.goalsBalance - a.goalsBalance;
-        }
-        return b.totalVictories - a.totalVictories;
-      }
-      return b.totalPoints - a.totalPoints;
-    });
+    const homeResults = await this.homeResults.teamResults();
+    const orderByPoints = orderResults(homeResults);
+    return orderByPoints;
+  }
+
+  public async leaderAwayTeam(): Promise<IResults[]> {
+    const awayResults = await this.awayResults.teamResults();
+    const orderByPoints = orderResults(awayResults);
     return orderByPoints;
   }
 }

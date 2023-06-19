@@ -10,4 +10,9 @@ export default class ResultsController {
     const results = await this.resultsService.leaderHomeTeam();
     return res.status(200).json(results);
   }
+
+  public async leaderAwayTeam(req: Request, res: Response): Promise<Response> {
+    const results = await this.resultsService.leaderAwayTeam();
+    return res.status(200).json(results);
+  }
 }
