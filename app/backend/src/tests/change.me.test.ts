@@ -15,6 +15,8 @@ import SequelizeUsers from '../database/models/SequellizeUsers';
 import { userRegistered, validLoginBody } from './mocks/UserMock';
 import SequelizeMatches from '../database/models/SequelizeMatches';
 import { findById, finishedMatches, matches, progressMatches } from './mocks/MatchesMock';
+import ResultsService from '../services/ResultsService';
+import { homeResultsMock } from './mocks/Results';
 
 chai.use(chaiHttp);
 
@@ -69,7 +71,7 @@ describe('Seu teste', () => {
 });
 
 describe('testa a rota de login', () => {
-  it('testa post comsucesso na rota de login', async () => {
+  it('testa post com sucesso na rota de login', async () => {
       const userMock = SequelizeUsers.build(userRegistered)
       sinon.stub(SequelizeUsers, 'findOne').resolves(userMock)
       
@@ -121,5 +123,18 @@ describe('testa a rota matches', () => {
     expect(body.message).to.equal('Finished');
   })
   
+  afterEach(sinon.restore);
+})
+
+
+describe('testa a rota de leaderboard', () => {
+  it('testa sucesso na rota home', async () => {
+    sinon.stub(SequelizeMatches, 'findAll').resolves(matches as any)
+    const { status, body } = await chai.request(app).get('/leaderboard/home');
+
+    expect(status).to.equal(200);
+    expect(body).to.deep.equal(homeResultsMock);
+  
+  })
   afterEach(sinon.restore);
 })

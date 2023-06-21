@@ -15,4 +15,9 @@ leaderboardsRouter.get('/away', (
   res: Response,
 ) => resultsController.leaderAwayTeam(req, res));
 
+leaderboardsRouter.get('/', (
+  req: Request,
+  res: Response,
+) => resultsController.leaderTeam(req, res));
+
 export default leaderboardsRouter;

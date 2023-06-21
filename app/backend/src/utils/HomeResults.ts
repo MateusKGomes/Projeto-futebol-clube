@@ -1,6 +1,7 @@
 import TeamModel from '../models/TeamModel';
 import ResultsModel from '../models/ResultsModel';
 import SequelizeMatches from '../database/models/SequelizeMatches';
+import IResults from '../Interfaces/results/IResults';
 
 export default class Results {
   constructor(
@@ -8,7 +9,7 @@ export default class Results {
     private teamModel: TeamModel = new TeamModel(),
   ) {}
 
-  public async teamResults() {
+  public async teamResults(): Promise<IResults[]> {
     const teams = await this.teamModel.findAll();
     const matches = await this.resultsModel.leaderTeam();
 
