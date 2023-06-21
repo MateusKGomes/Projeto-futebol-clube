@@ -33,17 +33,4 @@ export default class Results {
       };
     });
   }
-
-  // async efficiency(): Promise<number[]> {
-  //   const homeTeams = await this.homeResults.teamResults();
-  //   const awayTeams = await this.awayResults.teamResults();
-  //   const getTeam = homeTeams.map((homeTeam) => {
-  //     const awayTeam: IResults = awayTeams.find((n) => n.name === homeTeam.name) as IResults;
-  //     const P = awayTeam.totalPoints + homeTeam.totalPoints;
-  //     const J = awayTeam.totalGames + homeTeam.totalGames;
-  //     const efficiency = (P / (J * 3)) * 100;
-  //     return efficiency;
-  //   });
-  //   return getTeam;
-  // }
 }
